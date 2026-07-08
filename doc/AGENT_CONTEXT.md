@@ -233,19 +233,26 @@ Two parallel lines of work both merged into `develop` today (2026-07-08):
 
 **Ramjet inlet redesign for MIL-E-5007 (task: redesign the single conical
 spike as a multi-cone external-compression inlet).** This is genuinely
-unfinished and currently sits as **uncommitted working-tree changes** (not
-in any commit, not in any PR) in this container at:
+unfinished. It does NOT exist in any commit or PR — it is parked in a **git
+stash** in this container (working tree was left red with 4 failing tests,
+which can't be committed per the "never commit red tests" rule, so it was
+stashed instead of discarded):
 
-- `analyses/propulsion/inlet_performance.py` (modified, +528 lines vs the
-  merged `develop` version)
-- `tests/unit/test_propulsion_inlet.py` (modified, +159 lines)
+```
+stash@{0}: "WIP: multi-cone inlet redesign (4/4 failing tests need n_cones 2/3->4, see doc/AGENT_CONTEXT.md sec 7)"
+  analyses/propulsion/inlet_performance.py (+528 lines vs merged develop)
+  tests/unit/test_propulsion_inlet.py (+159 lines)
+```
 
-If you are continuing in this same container, these files are sitting
-modified in the working tree right now — do not discard them
-(`git checkout --`/`git restore` would silently delete real, mostly-good
-work). If you are a fresh session in a different environment, this WIP does
-not exist for you at all (it was never pushed) and this whole section is
-just a description of physics/design work still to do, not a file to go find.
+If you are continuing in this same container: `git stash list` to confirm
+it's still there, `git stash show -p stash@{0}` to inspect it, `git stash
+pop` to restore it into the working tree before resuming — do not discard it
+(`git stash drop` or ignoring it) without reading it first, it's real,
+mostly-good work. If you are a fresh session in a different
+environment/clone, this stash does not exist for you (stashes are local to
+this one working directory and were never pushed) — this whole section is
+then just a description of the physics/design work still to do, re-derivable
+from the table and bug list below, not a file to go find.
 
 **Current test status with this WIP applied:** 62 passed, 4 failed (all 4 in
 `tests/unit/test_propulsion_inlet.py`). Without it (i.e. at merged `develop`
