@@ -17,6 +17,10 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
 | 7 | SU2 external aero (Mach sweep) | `analyses/cfd/su2_config_template.py` | STUB | aero-analyst | 2026-07-08 |
 | 8 | Solid motor selection | `vehicles/ramjet_rocket/motor_database.yaml` | TBD | propulsion-designer | 2026-07-08 |
 | 9 | Moments of inertia (Fusion) | — | TBD | vehicle-builder | — |
+| 10 | Multi-cone inlet redesign (4-cone, M2.5) | `analyses/propulsion/inlet_performance.py` | DONE | propulsion-designer | 2026-07-08 |
+| 11 | Ramjet cycle L2 (combustor+nozzle) | `analyses/propulsion/ramjet_cycle.py` | DONE | propulsion-designer | 2026-07-08 |
+| 12 | Staged mission cruise design point | `workflows/ramp_staged_mission.py` | DONE | mission-planner | 2026-07-08 |
+| 13 | Static margin review (Barrowman) | `doc/ramP/static_margin_review.md` | DONE | aero-analyst | 2026-07-08 |
 
 ## Open data gaps
 - **Motor datasheet** — stage-1 propulsion is still `SZACOWANY` (estimated).
@@ -30,4 +34,6 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
   extraction required: open Fusion Assembly v6, right-click main component →
   "Physical Properties", copy Ixx/Iyy/Izz values (units: kg·m²) from the panel
   into `mass_properties:` section of `vehicle_config.yaml`. Cannot be automated.
-- **Ramjet cycle** (combustor/nozzle performance) — inlet only so far.
+- **Ramjet cycle** (combustor/nozzle performance) — RESOLVED 2026-07-08 at L2 fidelity (station 0-2-4-9 cycle; single-method result, MATLAB baseline unavailable, CFD delta +20-30% open).
+- **Nozzle geometry discrepancy** — vehicle_config.yaml nozzle_area_ratio 4.0 vs Fusion v6 cylindrical stub (expansion_ratio 1.0); thrust 12.31 kN (matched) vs 9.85 kN (cylindrical). Needs Laval nozzle design decision.
+- **Fin span suspect** (static margin 10.08 cal, ~7-8x span reduction would hit 1.5-2 cal) — likely Fusion export artifact, needs team review (see static_margin_review.md).
