@@ -25,5 +25,9 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
   Isp*mdot*g0); the previous 12 kN "peak" was below the impulse-consistent
   ~25.4 kN mean, which is physically impossible. Still needs a real
   R-13-class datasheet to replace the SZACOWANY values.
-- **Moments of inertia** Ixx/Iyy/Izz — not available via the Fusion API.
+- **Moments of inertia** Ixx/Iyy/Izz — Fusion 360 exposes the inertia tensor
+  ONLY in the GUI Physical Properties panel, not via its scripting API. Manual
+  extraction required: open Fusion Assembly v6, right-click main component →
+  "Physical Properties", copy Ixx/Iyy/Izz values (units: kg·m²) from the panel
+  into `mass_properties:` section of `vehicle_config.yaml`. Cannot be automated.
 - **Ramjet cycle** (combustor/nozzle performance) — inlet only so far.
