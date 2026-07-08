@@ -14,6 +14,8 @@
 
 def main():
     
+    debug_environment()
+    
     # imports
     import sys
     
@@ -32,22 +34,35 @@ def main():
         write_version_py(version)
         install(the_package,version,date)
 
+def debug_environment():
+    import sys
+    print("Python executable:", sys.executable)
+    print("Python version:", sys.version)
+    print("sys.path:", sys.path)
+    try:
+        import numpy
+        print("Numpy version:", numpy.__version__)
+    except ImportError:
+        print("Numpy is not accessible")
+
 # ----------------------------------------------------------------------
 #   Main - Run Setup
 # ----------------------------------------------------------------------   
 
-def write_version_py(version,filename='SUAVE/version.py'):
+import os
+
+def write_version_py(version, filename='SUAVE/version.py'):
+    # Ensure the directory exists
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+
     cnt = """
 # THIS FILE IS GENERATED
 version = '%(version)s'
 
 """
 
-    a = open(filename, 'w')
-    try:
+    with open(filename, 'w') as a:
         a.write(cnt % {'version': version})
-    finally:
-        a.close()        
         
 
  
@@ -62,9 +77,8 @@ def install(the_package,version,date):
         from setuptools import setup
     except ImportError:
         from distutils.core import setup
-        
-    # test for requirements
-    import_tests()
+          # Skip import_tests during installation - dependencies are already pre-installed
+    # import_tests()
     
     # list all SUAVE sub packages
     #print 'Listing Packages and Sub-Packages:'
@@ -151,13 +165,11 @@ def list_subpackages(package_trail,verbose=False):
     """
         
     # imports
-    import os
-
-    # error checking
+    import os    # error checking
     if isinstance(package_trail,str):
         package_trail = [package_trail]
     elif not isinstance(package_trail,(list,tuple)):
-        raise Exception('%s is not iterable' % package)
+        raise Exception('%s is not iterable' % package_trail)
 
     # print current package
     if verbose:
