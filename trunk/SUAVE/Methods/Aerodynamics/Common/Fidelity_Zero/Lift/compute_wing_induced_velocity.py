@@ -352,7 +352,7 @@ def supersonic(Z,XSQ1,RO1,XSQ2,RO2,XTY,T,B2,ZSQ,TOLSQ,TOL,TOLSQ2,X1,Y1,X2,Y2,RTV
     DENOM[DENOM_COND] = SIGN[DENOM_COND]*TOLSQ[DENOM_COND]
     
     # Create a boolean for various conditions for F1 that goes to zero
-    bool1           = np.ones(shape,dtype=np.bool8)
+    bool1           = np.ones(shape,dtype=bool)
     bool1[:,X1<TOL] = False
     bool1[RAD1==0.] = False
     RAD1[:,X1<TOL]  = 0.0
@@ -375,7 +375,7 @@ def supersonic(Z,XSQ1,RO1,XSQ2,RO2,XTY,T,B2,ZSQ,TOLSQ,TOL,TOLSQ2,X1,Y1,X2,Y2,RTV
     
     # Round 2
     # Create a boolean for various conditions for F2 that goes to zero
-    bool2           = np.ones(shape,dtype=np.bool8)
+    bool2           = np.ones(shape,dtype=bool)
     bool2[:,X2<TOL] = False
     bool2[RAD2==0.] = False
     RAD2[:,X2<TOL]  = 0.0
@@ -429,8 +429,8 @@ def supersonic(Z,XSQ1,RO1,XSQ2,RO2,XTY,T,B2,ZSQ,TOLSQ,TOL,TOLSQ2,X1,Y1,X2,Y2,RTV
     T2A = np.zeros((n_mach,size))
     
     # Setup masks
-    F_mask = np.ones((n_mach,size),dtype=np.bool8)
-    A_mask = np.ones((n_mach,size),dtype=np.bool8)
+    F_mask = np.ones((n_mach,size),dtype=bool)
+    A_mask = np.ones((n_mach,size),dtype=bool)
     F_mask[:,TE_ind] = False
     A_mask[:,LE_ind] = False
     

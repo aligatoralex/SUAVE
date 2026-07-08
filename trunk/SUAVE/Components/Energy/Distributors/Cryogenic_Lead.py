@@ -15,7 +15,20 @@ from SUAVE.Components.Energy.Energy_Component import Energy_Component
 from SUAVE.Attributes.Solids.Solid import Solid
 from scipy import integrate
 from scipy import interpolate
-from scipy.misc import derivative
+try:
+    from scipy.misc import derivative
+except ImportError:
+    # derivative was moved from scipy.misc to scipy.misc in newer versions
+    from scipy.optimize import approx_fprime
+    
+    def derivative(func, x0, dx=1e-6, n=1, args=(), order=3):
+        """Compatibility wrapper for scipy.misc.derivative"""
+        if n == 1:
+            def wrapper(x):
+                return func(x, *args)
+            return approx_fprime([x0], wrapper, [dx])[0]
+        else:
+            raise NotImplementedError("Higher order derivatives not implemented in compatibility layer")
 import numpy as np
 # ----------------------------------------------------------------------
 #  Cryogenic Lead Class

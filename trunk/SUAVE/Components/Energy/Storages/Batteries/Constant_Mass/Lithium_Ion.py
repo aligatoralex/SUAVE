@@ -16,7 +16,10 @@ from SUAVE.Components.Energy.Storages.Batteries  import Battery
 
 # package imports
 import numpy as np 
-from scipy.integrate import  cumtrapz
+try:
+    from scipy.integrate import  cumulative_trapezoid as cumtrapz
+except ImportError:
+    from scipy.integrate import  cumtrapz
 
 # ----------------------------------------------------------------------
 #  Lithium_Ion

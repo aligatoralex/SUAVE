@@ -269,7 +269,10 @@ def propeller_design(prop,number_of_stations=20,number_of_airfoil_section_points
     
     # blade solidity
     r          = chi*R                    # Radial coordinate   
-    blade_area = sp.integrate.cumtrapz(B*c, r-r[0])
+    try:
+        blade_area = sp.integrate.cumulative_trapezoid(B*c, r-r[0])
+    except AttributeError:
+        blade_area = sp.integrate.cumtrapz(B*c, r-r[0])
     sigma      = blade_area[-1]/(np.pi*R**2)   
     
     prop.design_torque                    = Power[0]/omega
