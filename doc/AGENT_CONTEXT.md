@@ -146,6 +146,22 @@ GTM-140 config, schema, 6 subagents, initial tests.
 History: merged into `develop` via **PR #8** (former PR #9 content consolidated in;
 #9 closed).
 
+**Night-3 (2026-07-09)** — branch `claude-dev-night3`, phases 2–7 completed (P1 combustor
+already DONE via PR #13), test suite **154/154 green**. Commits (one per phase):
+- P2 (cruise wiring Th1 + net margin): 3584f0fa
+- P3 (inlet actuation schedule 4-cone): 8e65b39d
+- P4 (motor database HTPB candidates): 546a55e7
+- P5 (fin polar Ackeret fallback): e7629e76
+- P6 (SU2 config generator Ma x AoA): 9a3c00b8
+- P7 (launch-angle sweep): 8a05c714
+
+Highlights: Grzywka cycle at Ma 2.5 delivers Th1 = 12107.9 N (vs Th2 = 12009.0 N,
+hierarchy holds); V3 = 1474.3 m/s exceeds Teltik CFD ~1047 m/s by +40.8% (HUMAN_REVIEW;
+root-caused by Night-4 P1-B as the fully-expanded-nozzle assumption, see below).
+Inlet actuation achieves MIL-E-5007 on [2.4, 3.5] Mach band; unattainable below ~2.4
+with current geometry. Launch angle 5° recommended (burnout alt 45.3 m, q_max 131.75 kPa).
+Tree clean, no budget cuts. Ran concurrently with Night-4 (below); branches merged.
+
 ### Night-4 (2026-07-09)
 
 **Branch:** `claude/fervent-albattani-f18spc`, **PR #15** (draft). Pytest: 118 baseline → 157 passed, 0 failed.
@@ -171,11 +187,20 @@ History: merged into `develop` via **PR #8** (former PR #9 content consolidated 
    lists `thrust_peak_N: 12000` (a peak below the mean is impossible). The trajectory
    uses the impulse-consistent 25.4 kN and flags this. **Needs a real motor datasheet**
    (the R-13 in Fusion is a geometry mockup only).
-2. **0° horizontal launch is non-viable as modeled** — with gravity, no lift, and
-   h₀=100 m the rocket hits the ground at t≈4.53 s (before 6 s burnout). Re-run with a
-   positive launch angle and/or a lift model.
-3. **Single-cone inlet fails MIL-E-5007** at M 2.5 — expected for one oblique + one
-   normal shock. Redesign to a multi-shock (2–3 cone) or isentropic spike.
+2. **RESOLVED — 0° horizontal launch is non-viable as modeled** — with gravity, no lift,
+   and h₀=100 m the rocket hits the ground at t≈4.53 s (before 6 s burnout). A
+   launch-angle sensitivity sweep (`analyses/trajectory/booster_burnout.py::run_launch_angle_sweep`,
+   angles 5–30°) confirms every swept angle avoids premature ground impact; the module
+   reports `recommended_launch_angle_deg = 5.0` (the smallest swept viable angle,
+   burnout Mach ≈1.37, burnout altitude ≈45 m) in `burnout_state.json`. Full per-angle
+   results (burnout Mach/altitude/range, max q, ground-impact flag) are in
+   `analyses/trajectory/launch_angle_sweep.csv` / `.png`. The module's own nominal run
+   still defaults to the near-vertical 83° rail-launch angle documented above.
+3. **Inlet actuation schedule** (Night-3, `analyses/propulsion/inlet_actuation.py`):
+   4-cone variable geometry now achieves MIL-E-5007 (η ≥ 0.870) **contiguously on
+   Mach [2.4, 3.5]** only. Below ~Ma 2.4, current geometry cannot meet standard even
+   with full deflection. Fixed single-cone design obsolete; use actuation schedule
+   for cruise band (Ma 2.4–3.5) and accept penalty below Ma 2.4.
 4. **Nozzle** in Fusion is cylindrical (area ratio 1.0) — needs a Laval redesign for
    the cruise stage.
 5. **Config reconciliation:** the schema-validated `vehicle_config.yaml` (with
