@@ -3,7 +3,7 @@
 > Onboarding for the next agent session. Read this together with the root
 > [`CLAUDE.md`](../CLAUDE.md) (architecture + hard rules) and
 > [`doc/ramP/analysis_status.md`](ramP/analysis_status.md) (live task tracker).
-> Last updated: 2026-07-08.
+> Last updated: 2026-07-09.
 
 ---
 
@@ -146,6 +146,22 @@ GTM-140 config, schema, 6 subagents, initial tests.
 History: merged into `develop` via **PR #8** (former PR #9 content consolidated in;
 #9 closed).
 
+### Night-4 (2026-07-09)
+
+**Branch:** `claude/fervent-albattani-f18spc`, **PR #15** (draft). Pytest: 118 baseline → 157 passed, 0 failed.
+
+**P1-A (aero, sonnet):** `analyses/aero/barrowman_extended.py` — Galejs body-lift + reused P-G/Ackeret fin. YAML Ma 2.5: SM_extended +4.594 cal (gap to Teltik CFD halved but +7.344 cal remain); STABILITY_REVIEW_NEEDED flag stands. 7 tests.
+
+**P1-B (propulsion, opus):** `analyses/propulsion/validation/v3_discrepancy_analysis.md` — V3 root cause: fully-expanded nozzle assumption (A3/A21=2.44, Ma3=2.32) vs cylindrical CAD stub (ratio 1.0, ~809 m/s). T04 and gamma ruled out. HR-3 Laval nozzle decision pending. 0 new tests (analysis-only).
+
+**P1-C (mission, sonnet):** `analyses/mission/operational_envelope.py` — 5Ma×6alt grid, all 30 cells SUSTAINED with CD0=0.35 SZACOWANY. Net thrust 5.3–28.1 kN (Ma1.5/10km–Ma3.0/SL). WP-21. 14 tests.
+
+**P1-D (haiku):** 6 agent definitions + memory stubs refreshed. BB5 complete.
+
+**P2-A (mission, sonnet):** `analyses/suave/ramp_suave_baseline.py` — 0D fallback (SUAVE stub). Range 47,631.5 m (boost 167.5 + cruise 47,464 with SZACOWANY 60 s placeholder). WP-22. 11 tests.
+
+**P2-B (aero, sonnet):** `analyses/aero/fin_polar_comparison.py` — Ackeret vs Diederich surrogate. Ma2.5/α=5°: CL_ackeret 0.1523 vs CL_surrogate 0.3616 (ratio 2.37 RATIO_HIGH); 24/30 cells RATIO_HIGH. 7 tests. WP-23.
+
 ---
 
 ## 7. Known issues / caveats (READ before trusting numbers)
@@ -171,6 +187,16 @@ History: merged into `develop` via **PR #8** (former PR #9 content consolidated 
 7. **Barrowman caveat:** the fin set is huge (span 2.67× body Ø), so CP is far aft and
    the margin is very large / possibly over-stable; transonic band is linearly bridged
    (not CFD) — corroborate near Mach 1 with SU2 / wind tunnel before sign-off.
+8. **V3 nozzle root cause (Night-4):** exit velocity 1474 m/s vs Teltik CFD 1047 m/s 
+   (+40.8%) traced to fully-expanded-nozzle assumption (A3/A21=2.44, Ma3=2.32) vs actual 
+   cylindrical CAD stub (ratio 1.0, near-sonic exit ~809 m/s). T04 and gamma ruled out; 
+   HR-3 Laval nozzle decision pending (`analyses/propulsion/validation/v3_discrepancy_analysis.md`).
+9. **Extended Barrowman SM gap:** at YAML geometry Ma 2.5, SM_extended +4.594 cal 
+   vs Teltik CFD −2.75 cal — gap halved from original basic analysis but still 
+   +7.344 cal; geometry audit required (Night-4 P1-A, `analyses/aero/results/SM_sensitivity_*.csv`).
+10. **Operational envelope unconstrained:** all 30 grid cells (Ma 1.5–3.5 × 0–10 km) 
+    marked SUSTAINED with CD0=0.35 SZACOWANY drag; real wave+friction polar needed 
+    before envelope is trustworthy (Night-4 P1-C).
 
 ---
 
@@ -220,3 +246,20 @@ only and NOT run git**; the orchestrator commits (one commit per task) to avoid 
 6. Extract **moments of inertia** from Fusion GUI into the config.
 
 Keep `doc/ramP/analysis_status.md` updated as items move STUB/TBD → DONE.
+
+### Night-5 recommended actions
+
+1. **Team:** HR-1 / HR-2 fin-span CAD verification. Now equipped with body-lift-corrected 
+   sensitivity data (`analyses/aero/results/SM_sensitivity_fin_span.csv`) showing how SM 
+   varies with span near the YAML geometry.
+
+2. **Team:** HR-3 **Laval nozzle decision**. Decide on area_ratio design intent (e.g., 4.0) 
+   vs cylindrical CAD stub (ratio 1.0). Then agents re-run `combustor_nozzle_cycle` with 
+   finite area ratio and re-validate V3 vs Teltik data.
+
+3. **Agents:** Real **drag polar** (wave + friction buildup, Ma 1.5–3.5 sweep) to replace 
+   CD0=0.35 SZACOWANY. Then re-run operational envelope (`analyses/mission/operational_envelope.py`) 
+   and SUAVE baseline (`analyses/suave/ramp_suave_baseline.py`) to populate sustainable cruise cells.
+
+4. **Agents:** **Stage-2 fuel mass budget** — replace the 60 s SZACOWANY cruise placeholder 
+   with real mass and range trade. Wire into SUAVE baseline to close the mission loop.
