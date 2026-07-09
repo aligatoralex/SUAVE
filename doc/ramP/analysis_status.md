@@ -26,6 +26,7 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
 | 16 | Combustor+nozzle Grzywka model (CC→NT→NE, Thi/Th1/Th2) | `analyses/propulsion/combustor_nozzle_cycle.py` <!-- TODO: dead link, target missing as of 2026-07-09 --> | **BLOCKED_BY_BUDGET** | propulsion-designer | 2026-07-09 |
 | 17 | Cruise wiring to Grzywka model (Night-2 Phase 3b) | `workflows/ramp_staged_mission.py` | BLOCKED_BY_BUDGET | mission-planner | 2026-07-09 |
 | 18 | Movable-inlet actuation params (Night-2 Phase 4b) | `analyses/propulsion/inlet_performance.py` | BLOCKED_BY_BUDGET | propulsion-designer | 2026-07-09 |
+| 19 | Stability reconciliation (geometry audit + fin-span sensitivity sweep, Night-3 Phase 5) | `doc/ramP/stability_reconciliation.md` | DONE | aero-analyst | 2026-07-09 |
 
 ## Night-2 checkpoint (2026-07-09, budget guard at 80%)
 
