@@ -155,9 +155,15 @@ History: merged into `develop` via **PR #8** (former PR #9 content consolidated 
    lists `thrust_peak_N: 12000` (a peak below the mean is impossible). The trajectory
    uses the impulse-consistent 25.4 kN and flags this. **Needs a real motor datasheet**
    (the R-13 in Fusion is a geometry mockup only).
-2. **0° horizontal launch is non-viable as modeled** — with gravity, no lift, and
-   h₀=100 m the rocket hits the ground at t≈4.53 s (before 6 s burnout). Re-run with a
-   positive launch angle and/or a lift model.
+2. **RESOLVED — 0° horizontal launch is non-viable as modeled** — with gravity, no lift,
+   and h₀=100 m the rocket hits the ground at t≈4.53 s (before 6 s burnout). A
+   launch-angle sensitivity sweep (`analyses/trajectory/booster_burnout.py::run_launch_angle_sweep`,
+   angles 5–30°) confirms every swept angle avoids premature ground impact; the module
+   reports `recommended_launch_angle_deg = 5.0` (the smallest swept viable angle,
+   burnout Mach ≈1.37, burnout altitude ≈45 m) in `burnout_state.json`. Full per-angle
+   results (burnout Mach/altitude/range, max q, ground-impact flag) are in
+   `analyses/trajectory/launch_angle_sweep.csv` / `.png`. The module's own nominal run
+   still defaults to the near-vertical 83° rail-launch angle documented above.
 3. **Single-cone inlet fails MIL-E-5007** at M 2.5 — expected for one oblique + one
    normal shock. Redesign to a multi-shock (2–3 cone) or isentropic spike.
 4. **Nozzle** in Fusion is cylindrical (area ratio 1.0) — needs a Laval redesign for
