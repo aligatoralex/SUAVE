@@ -23,7 +23,7 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
 | 13 | Static margin review (Barrowman) | `doc/ramP/static_margin_review.md` | DONE | aero-analyst | 2026-07-08 |
 | 14 | Stability margin report (Barrowman vs Teltik 2024 CFD) | `doc/ramP/stability_margin_report.md` | DONE | aero-analyst | 2026-07-09 |
 | 15 | Inlet completeness audit (Night-2 Phase 1b) | `tests/unit/test_propulsion_inlet.py` | DONE | code-reviewer | 2026-07-09 |
-| 16 | Combustor+nozzle Grzywka model (CC→NT→NE, Thi/Th1/Th2) | `analyses/propulsion/combustor_nozzle_cycle.py` | **BLOCKED_BY_BUDGET** | propulsion-designer | 2026-07-09 |
+| 16 | Combustor+nozzle Grzywka model (CC→NT→NE, Thi/Th1/Th2) | `analyses/propulsion/combustor_nozzle_cycle.py` <!-- TODO: dead link, target missing as of 2026-07-09 --> | **BLOCKED_BY_BUDGET** | propulsion-designer | 2026-07-09 |
 | 17 | Cruise wiring to Grzywka model (Night-2 Phase 3b) | `workflows/ramp_staged_mission.py` | BLOCKED_BY_BUDGET | mission-planner | 2026-07-09 |
 | 18 | Movable-inlet actuation params (Night-2 Phase 4b) | `analyses/propulsion/inlet_performance.py` | BLOCKED_BY_BUDGET | propulsion-designer | 2026-07-09 |
 
@@ -38,8 +38,8 @@ clean, no partial/dangling files, full suite **80/80 tests green**.
 **Resume point:** next session should resume **Night-2 Phase 2b** from its
 full task spec below (do not re-diagnose, do not restart from Phase 0):
 
-- Create `analyses/propulsion/combustor_nozzle_cycle.py` +
-  `tests/unit/test_propulsion_combustor_nozzle.py`.
+- Create `analyses/propulsion/combustor_nozzle_cycle.py` <!-- TODO: dead link, target missing as of 2026-07-09 --> +
+  `tests/unit/test_propulsion_combustor_nozzle.py` <!-- TODO: dead link, target missing as of 2026-07-09 -->.
 - Model: Grzywka 2022, stations **1 → 2 → 21 → 3** (CC → NT → NE).
 - Loss coefficients: `pi_CC = 0.8924` (1→2), `pi_nozzle = 0.97` (2→3).
 - Nozzle throat area **D21 is dynamic** (a function of `V`, `H`), with

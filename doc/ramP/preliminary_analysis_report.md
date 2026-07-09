@@ -74,7 +74,7 @@ DATCOM-style CD, mass depletion. Full data:
 > propellant over 6 s at Isp 207–230 s implies a **mean** thrust of ~25.4 kN — a peak below the
 > mean is impossible. The sim used the impulse-consistent 25.4 kN and ignored the 12 kN figure.
 
-![Boost phase](../../analyses/trajectory/boost_phase.png)
+![Boost phase](../../analyses/trajectory/boost_phase.png) <!-- TODO: dead link, target missing as of 2026-07-09 -->
 
 ---
 
