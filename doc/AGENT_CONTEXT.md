@@ -146,6 +146,21 @@ GTM-140 config, schema, 6 subagents, initial tests.
 History: merged into `develop` via **PR #8** (former PR #9 content consolidated in;
 #9 closed).
 
+**Night-3 (2026-07-09)** — branch `claude-dev-night3`, phases 2–7 completed (P1 combustor
+already DONE via PR #13), test suite **154/154 green**. Commits (one per phase):
+- P2 (combustor+nozzle Grzywka): 546a55e7
+- P3 (cruise wiring Th1): 8e65b39d
+- P4 (inlet actuation 4-cone): e7629e76
+- P5 (fin polar Ackeret): 3584f0fa
+- P6 (motor database HTPB): 9a3c00b8
+- P7 (launch-angle sweep): 8a05c714
+
+Highlights: Grzywka cycle at Ma 2.5 delivers Th1 = 12107.9 N (vs Th2 = 12009.0 N,
+hierarchy holds); V3 = 1474.3 m/s exceeds Teltik CFD ~1047 m/s by +40.8% (HUMAN_REVIEW).
+Inlet actuation achieves MIL-E-5007 on [2.4, 3.5] Mach band; unattainable below ~2.4
+with current geometry. Launch angle 5° recommended (burnout alt 45.3 m, q_max 131.75 kPa).
+Tree clean, no budget cuts.
+
 ---
 
 ## 7. Known issues / caveats (READ before trusting numbers)
@@ -164,8 +179,11 @@ History: merged into `develop` via **PR #8** (former PR #9 content consolidated 
    results (burnout Mach/altitude/range, max q, ground-impact flag) are in
    `analyses/trajectory/launch_angle_sweep.csv` / `.png`. The module's own nominal run
    still defaults to the near-vertical 83° rail-launch angle documented above.
-3. **Single-cone inlet fails MIL-E-5007** at M 2.5 — expected for one oblique + one
-   normal shock. Redesign to a multi-shock (2–3 cone) or isentropic spike.
+3. **Inlet actuation schedule** (Night-3, `analyses/propulsion/inlet_actuation.py`):
+   4-cone variable geometry now achieves MIL-E-5007 (η ≥ 0.870) **contiguously on
+   Mach [2.4, 3.5]** only. Below ~Ma 2.4, current geometry cannot meet standard even
+   with full deflection. Fixed single-cone design obsolete; use actuation schedule
+   for cruise band (Ma 2.4–3.5) and accept penalty below Ma 2.4.
 4. **Nozzle** in Fusion is cylindrical (area ratio 1.0) — needs a Laval redesign for
    the cruise stage.
 5. **Config reconciliation:** the schema-validated `vehicle_config.yaml` (with
