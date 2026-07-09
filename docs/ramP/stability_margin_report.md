@@ -2,11 +2,11 @@
 
 **Date:** 2026-07-10
 **Author:** aero-analyst subagent (MELprop-IADE)
-**Scope:** Analysis only. No code, YAML, or geometry files were modified. This report re-uses and extends `doc/ramP/static_margin_review.md` (2026-07-08, Night 1) — that review is not reproduced in full here; read it first for the fin-CN_alpha breakdown, the fin-span sensitivity table, and the burnout-CG analysis. This report adds an independent data point (CFD) that the Night 1 review did not have, and re-frames the conclusion in light of it.
+**Scope:** Analysis only. No code, YAML, or geometry files were modified. This report re-uses and extends `docs/ramP/static_margin_review.md` (2026-07-08, Night 1) — that review is not reproduced in full here; read it first for the fin-CN_alpha breakdown, the fin-span sensitivity table, and the burnout-CG analysis. This report adds an independent data point (CFD) that the Night 1 review did not have, and re-frames the conclusion in light of it.
 
 **Data sources:**
 - `analyses/stability/barrowman_stability.py` (Barrowman + Rogers-extension implementation; re-run read-only for this report)
-- `doc/ramP/static_margin_review.md` (Night 1 review — cited throughout, not duplicated)
+- `docs/ramP/static_margin_review.md` (Night 1 review — cited throughout, not duplicated)
 - Teltik, 2024 — CFD thesis data for the ramjet_rocket outer mold line, cited as given: CP = 1.85 m from nose at Ma 1.5, CP = 0.92 m from nose at Ma 2.5
 - `analyses/cfd/su2_config_template.py` (stub only — no run performed for this report)
 

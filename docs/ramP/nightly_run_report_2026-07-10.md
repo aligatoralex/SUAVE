@@ -5,7 +5,7 @@ mergeable clean).
 
 This is a **short-form report**: the Night-2 run was interrupted mid-phase by
 the budget guard firing at 80% of the usage window. See the checkpoint in
-`doc/ramP/analysis_status.md` ("Night-2 checkpoint") for the full resume spec.
+`docs/ramP/analysis_status.md` ("Night-2 checkpoint") for the full resume spec.
 
 ## Phase table
 
@@ -57,7 +57,7 @@ they were the Grzywka model — they are a different, earlier-fidelity model
 ## Resume recommendation for next session
 
 Start with **Phase 2b on opus-tier** (full spec preserved in the
-`doc/ramP/analysis_status.md` checkpoint — do not substitute sonnet), then
+`docs/ramP/analysis_status.md` checkpoint — do not substitute sonnet), then
 **Phase 3b (sonnet)**, then **Phase 4b (opus)**. Nothing simpler remains
 undone — all sonnet-safe items were completed this night.
 

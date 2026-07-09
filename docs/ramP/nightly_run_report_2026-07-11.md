@@ -58,7 +58,7 @@ No regressions; all pre-existing tests remain passing.
 
 - **HR-4 through HR-9 (standing from prior sessions):** combustor flame-holder risk, 
   stage-1 motor datasheet, GTM-140 mass/SFC, wing aspect ratio, Ixx/Iyy/Izz, inlet 
-  actuation parameters. See `doc/ramP/human_review_night4.md` for full list.
+  actuation parameters. See `docs/ramP/human_review_night4.md` for full list.
 
 ---
 
@@ -173,4 +173,4 @@ All work pushed incrementally to PR #15 (draft, mergeable clean):
 ---
 
 **Next session:** Start with Night-5 actions; HR-1/2/3/4 decisions unblock cascade of P1/P2 
-re-runs. See `doc/ramP/analysis_status.md` for scheduler state and task priority.
+re-runs. See `docs/ramP/analysis_status.md` for scheduler state and task priority.

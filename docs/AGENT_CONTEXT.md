@@ -2,7 +2,7 @@
 
 > Onboarding for the next agent session. Read this together with the root
 > [`CLAUDE.md`](../CLAUDE.md) (architecture + hard rules) and
-> [`doc/ramP/analysis_status.md`](ramP/analysis_status.md) (live task tracker).
+> [`docs/ramP/analysis_status.md`](ramP/analysis_status.md) (live task tracker).
 > Last updated: 2026-07-09.
 
 ---
@@ -50,7 +50,7 @@ analyses/
   cfd/su2_config_template.py         # STUB (SU2 Mach sweep)
 workflows/                     # (empty) OpenMDAO problems / MDO / staging events
 tests/unit/                    # pytest: test_schemas, test_aero_avl, test_propulsion_inlet
-doc/ramP/                      # analysis_status.md, preliminary_analysis_report.md
+docs/ramP/                      # analysis_status.md, preliminary_analysis_report.md
 .claude/agents/                # 6 subagent definitions
 ```
 
@@ -138,7 +138,7 @@ longitudinal). Key numbers: total length 4.377 m, body Ø 0.250 m, conical nose
 | Ramjet inlet | `analyses/propulsion/inlet_performance.py` | η 0.661 vs MIL-E-5007 0.870 | ❌ FAIL (expected) |
 
 Outputs (JSON + 150-DPI PNG) live beside each script; consolidated write-up in
-`doc/ramP/preliminary_analysis_report.md`.
+`docs/ramP/preliminary_analysis_report.md`.
 
 **Project A** foundation (earlier): `AVLAnalysis` wrapper with Helmbold fallback,
 GTM-140 config, schema, 6 subagents, initial tests.
@@ -270,7 +270,7 @@ only and NOT run git**; the orchestrator commits (one commit per task) to avoid 
 5. Fill GTM-140 (Project A) real data from the Jetpol datasheet; wire AVL subprocess.
 6. Extract **moments of inertia** from Fusion GUI into the config.
 
-Keep `doc/ramP/analysis_status.md` updated as items move STUB/TBD → DONE.
+Keep `docs/ramP/analysis_status.md` updated as items move STUB/TBD → DONE.
 
 ### Night-5 recommended actions
 

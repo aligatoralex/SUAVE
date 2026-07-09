@@ -20,8 +20,8 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
 | 10 | Multi-cone inlet redesign (4-cone, M2.5) | `analyses/propulsion/inlet_performance.py` | DONE | propulsion-designer | 2026-07-08 |
 | 11 | Ramjet cycle L2 (combustor+nozzle) | `analyses/propulsion/ramjet_cycle.py` | DONE | propulsion-designer | 2026-07-08 |
 | 12 | Staged mission cruise design point | `workflows/ramp_staged_mission.py` | DONE | mission-planner | 2026-07-08 |
-| 13 | Static margin review (Barrowman) | `doc/ramP/static_margin_review.md` | DONE | aero-analyst | 2026-07-08 |
-| 14 | Stability margin report (Barrowman vs Teltik 2024 CFD) | `doc/ramP/stability_margin_report.md` | DONE | aero-analyst | 2026-07-09 |
+| 13 | Static margin review (Barrowman) | `docs/ramP/static_margin_review.md` | DONE | aero-analyst | 2026-07-08 |
+| 14 | Stability margin report (Barrowman vs Teltik 2024 CFD) | `docs/ramP/stability_margin_report.md` | DONE | aero-analyst | 2026-07-09 |
 | 15 | Inlet completeness audit (Night-2 Phase 1b) | `tests/unit/test_propulsion_inlet.py` | DONE | code-reviewer | 2026-07-09 |
 | 16 | Combustor+nozzle Grzywka model (CC→NT→NE, Thi/Th1/Th2) | `analyses/propulsion/combustor_nozzle_cycle.py` | DONE | propulsion-designer | 2026-07-09 |
 | 17 | Cruise wiring to Grzywka model (Night-2 Phase 3b) | `workflows/ramp_staged_mission.py` | DONE | mission-planner | 2026-07-09 |
@@ -31,7 +31,7 @@ Status legend: **DONE** (implemented + run) · **STUB** (scaffold + TODO) ·
 | 22 | SUAVE baseline mission 0D fallback (reference trajectory for validation) | `analyses/suave/ramp_suave_baseline.py` | DONE | propulsion-designer | 2026-07-09 |
 | 23 | Fin polar comparison (Ackeret vs Diederich, supersonic airfoil) | `analyses/aero/fin_polar_comparison.py` | DONE | aero-analyst | 2026-07-09 |
 | 24 | V3 root-cause analysis (nozzle area-ratio vs T04 vs gamma effects) | `analyses/propulsion/validation/v3_discrepancy_analysis.md` | ANALYZED | propulsion-designer (P1-B) | 2026-07-09 |
-| 25 | Stability reconciliation (geometry audit + fin-span sensitivity sweep, Night-3 Phase 5) | `doc/ramP/stability_reconciliation.md` | DONE | aero-analyst | 2026-07-09 |
+| 25 | Stability reconciliation (geometry audit + fin-span sensitivity sweep, Night-3 Phase 5) | `docs/ramP/stability_reconciliation.md` | DONE | aero-analyst | 2026-07-09 |
 | 26 | Launch-angle sweep (5–30°, recommended 5° via booster_burnout.py) | `analyses/trajectory/booster_burnout.py::run_launch_angle_sweep` | DONE | mission-planner | 2026-07-09 |
 | 27 | Inlet actuation schedule (4-cone, Ma 2.4–3.5 MIL-E-5007 band, Δθ per cone) | `analyses/propulsion/inlet_actuation.py` | DONE | propulsion-designer | 2026-07-09 |
 
@@ -118,6 +118,6 @@ Tree clean. Six commits, one per phase:
 
 **No BLOCKED_BY_BUDGET items remain.** Rows 16/17/18 transitioned to DONE (PR #13 merged Night-3).
 
-**Human-review items:** 9 items listed in doc/ramP/human_review_night4.md (HR-1 through HR-9), blocks: stability geometry (fin span, HR-1), CFD mesh revision confirmation (HR-2), nozzle design decision (HR-3, PRIMARY root cause), stage-1 motor datasheet (HR-4), moments of inertia extraction (HR-5); non-blocking but ACTIVE: max_rpm units convention (HR-6), T04 source confirmation (HR-7), gamma_products composition (HR-8), drag-polar for nominal cruise selection (HR-9).
+**Human-review items:** 9 items listed in docs/ramP/human_review_night4.md (HR-1 through HR-9), blocks: stability geometry (fin span, HR-1), CFD mesh revision confirmation (HR-2), nozzle design decision (HR-3, PRIMARY root cause), stage-1 motor datasheet (HR-4), moments of inertia extraction (HR-5); non-blocking but ACTIVE: max_rpm units convention (HR-6), T04 source confirmation (HR-7), gamma_products composition (HR-8), drag-polar for nominal cruise selection (HR-9).
 
 **Artifact note:** PNG plots (barrowman_extended.png, envelope.png, v3_discrepancy.png, etc.) are gitignored repo-wide; regenerate by running analysis scripts directly (e.g., `python analyses/aero/barrowman_extended.py`).

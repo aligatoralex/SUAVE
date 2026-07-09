@@ -10,12 +10,12 @@ write. All numbers below were produced by calling the existing
 none of the Barrowman math was reimplemented.
 
 **Prerequisite reading (not reproduced here):**
-- `doc/ramP/stability_margin_report.md` — Phase 0b writeup establishing the
+- `docs/ramP/stability_margin_report.md` — Phase 0b writeup establishing the
   sign-flip discrepancy (Barrowman +8.99 cal vs Teltik 2024 CFD −2.75 cal at
   Ma 2.5).
 - `docs/assumptions.md`, row **A15** — numeric register entry for the same
   discrepancy.
-- `doc/ramP/static_margin_review.md` (Night 1) — origin of the "~7-8x
+- `docs/ramP/static_margin_review.md` (Night 1) — origin of the "~7-8x
   fin-span reduction would restore 1.5-2 cal" hypothesis, computed at the
   M=0 anchor condition.
 
@@ -69,7 +69,7 @@ or in what CAD feature was measured.
 | `body.total_length_m` | 4.377 m | Confirmed (self-declared) | Cross-checked in the extraction's own "CORRECTIONS LOG" (`axis_correction`: "Booster 2.089m now fits in total 4.377m"). |
 | `mass_properties.cg_from_nose_m` | 1.6084 m | Confirmed (self-declared) | `extraction.confidence.center_of_gravity: "VERY HIGH (verified by component breakdown)"`. |
 | `fins.count`, `sweep_deg`, `chord_root_m`/`chord_tip_m` | 4, 0.0°, 0.1768 m | Confirmed (self-declared), **not independently flagged as suspect anywhere** | No `SZACOWANY` tag; not mentioned in Night-1/A15 discussion. |
-| **`fins.span_m`** | **0.6685 m** | **Suspect** — but *not* via any explicit `SZACOWANY`/estimated tag in either YAML file | Flagged only in `doc/ramP/static_margin_review.md` and `doc/ramP/analysis_status.md` ("Fin span suspect... likely Fusion export artifact"), inferred *indirectly* from the physically implausible resulting static margin (10+ cal at M=0, +8.99 cal at Ma 2.5) and from this exact extraction pipeline's own history of one already-caught cm/mm unit bug (`fusion_extraction_v6.yaml` → `corrections.unit_system_fix`). |
+| **`fins.span_m`** | **0.6685 m** | **Suspect** — but *not* via any explicit `SZACOWANY`/estimated tag in either YAML file | Flagged only in `docs/ramP/static_margin_review.md` and `docs/ramP/analysis_status.md` ("Fin span suspect... likely Fusion export artifact"), inferred *indirectly* from the physically implausible resulting static margin (10+ cal at M=0, +8.99 cal at Ma 2.5) and from this exact extraction pipeline's own history of one already-caught cm/mm unit bug (`fusion_extraction_v6.yaml` → `corrections.unit_system_fix`). |
 | `body.max_diameter_m` | 0.639 m | **Internally inconsistent, not currently used by Barrowman** | Not read by `load_geometry()` at all. See Section 3 note below — it is numerically hard to reconcile with `fins.span_m = 0.6685 m` if both describe the same physical vehicle. |
 
 Note the asymmetry: propulsion fields in `vehicle_config.yaml`
@@ -202,7 +202,7 @@ CAD-verification tasks against **Fusion Assembly v6**.
 9. **Moments of inertia, while the CAD is open.** Unrelated to CP but noted
    here since it requires the same manual Assembly v6 GUI session:
    `Ixx/Iyy/Izz` are still `"TBD"` in `fusion_extraction_v6.yaml` and
-   flagged in `doc/ramP/analysis_status.md` — worth extracting in the same
+   flagged in `docs/ramP/analysis_status.md` — worth extracting in the same
    CAD pass as the fin-span check to avoid a second manual session.
 
 ---
