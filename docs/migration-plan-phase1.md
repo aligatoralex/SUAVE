@@ -159,24 +159,48 @@ If any of these occur, halt and report instead of improvising:
 
 ## Validation checklist (post-filter, pre-push)
 
-- [ ] `git log --oneline | wc -l` reported and sane (expect roughly the
-      number of MELprop-authored commits touching owned paths — likely a
-      small fraction of 790; exact number depends on how filter-repo
-      collapses empty commits, report it rather than assume).
-- [ ] `du -sh .git` shrunk substantially from 124 MB (the 311 MB
-      `regression/` and 6.5 MB `trunk/` should no longer be reachable in
-      any historical blob).
-- [ ] `python -m pytest tests/ -v --tb=short` → 208 passed, 0 failed, in
+- [x] `git log --oneline | wc -l` reported and sane — **182** (down from
+      793 in the source repo at the time of this run; Step A's 3 commits
+      included). Small fraction of history retained, as expected.
+- [x] `du -sh .git` shrunk substantially from 124 MB — **912K** post-filter.
+- [x] `python -m pytest tests/ -v --tb=short` → **208 passed, 0 failed**, in
       the filtered clone (after reinstalling `pydantic>=2, pyyaml, pytest,
       scipy, matplotlib`).
-- [ ] No remaining `import SUAVE` / `trunk.SUAVE` references resolve
-      ambiguously (guarded imports in `core/` should simply report SUAVE
-      unavailable, as they already do — verified this run via
-      `test_probe_suave_available_is_false_in_this_container`).
-- [ ] No `.gitignore` or doc cross-reference still points at `doc/`
-      (should already be zero if Step A ran first).
-- [ ] `docs/decision-log.md` gets an entry recording the filter-repo run
-      (commit count before/after, `.git` size before/after, timestamp).
+- [x] No remaining `import SUAVE` / `trunk.SUAVE` references resolve
+      ambiguously — pytest suite (including
+      `test_probe_suave_available_is_false_in_this_container`) passes
+      unchanged in the filtered clone.
+- [x] No `.gitignore` or doc cross-reference still points at `doc/` — Step A
+      landed before this run, so the filtered clone's `docs/` tree already
+      carries the corrected references.
+- [x] `docs/decision-log.md` entry recorded — see below and the companion
+      decision-log append in this same commit.
+
+### Execution result — dry run, 2026-07-09 (this run)
+
+Executed via three gated subagents (step0-verifier → stepb-reviewer →
+stepb-executor), all `STATUS: PASS`. This was a **dry run against a
+disposable clone only** — nothing was pushed, no remote was added, and
+`/home/user/droneEnv` and the backup mirror were untouched throughout.
+
+| Metric | Before | After |
+|---|---|---|
+| Commit count | 793 | 182 |
+| `.git` size | 124 MB | 912 KB |
+| pytest | 208 passed, 0 failed | 208 passed, 0 failed |
+
+- Disposable clone path: `/home/user/iade-extraction-work-1783681291`
+  (left on disk, not deleted, not pushed, not remoted — available for
+  human inspection; safe to delete once reviewed).
+- Command run: exactly the Step B `git filter-repo --force --path ...`
+  block above, unmodified.
+- Required paths confirmed present; all upstream-baggage paths confirmed
+  absent (see stepb-executor's KEY_FACTS, full log at
+  `/tmp/stepb-executor.log` on the machine this ran on).
+- **This dry run proves the plan is mechanically sound. It does not
+  constitute pushing history to `knnmelprop/iade`** — that remains a
+  separate, explicit approval gate per the task's hard constraints ("do
+  not push rewritten history until explicitly told").
 
 ---
 

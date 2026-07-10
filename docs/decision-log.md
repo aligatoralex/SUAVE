@@ -98,3 +98,24 @@ Branch `claude/melprop-iade-night-run-by9c2l`, draft PR #12.
   rotation on the Coveralls side is a human action item, tracked outside
   this repo. The token will be purged from history as part of Phase 1
   Step B `git filter-repo` when approved.
+
+---
+
+## 2026-07-09 — Phase 1 Step B — dry-run execution (subagent-delegated)
+
+- Orchestrated via three gated subagents (step0-verifier, stepb-reviewer,
+  stepb-executor), each returning `STATUS: PASS` before the next was
+  dispatched.
+- `git filter-repo --force --path ...` (exact command in
+  `docs/migration-plan-phase1.md`) executed against a **disposable clone**
+  (`/home/user/iade-extraction-work-1783681291`), never against
+  `droneEnv` or the backup mirror. No push, no remote added, no Phase 2
+  work performed.
+- Result: 793 → 182 commits, `.git` 124 MB → 912 KB, pytest 208/208 green
+  before and after. All MELprop-owned paths present; all upstream-baggage
+  paths (SUAVE, trunk, Tutorials-2.3.1, Tutorials252, ide, templates,
+  regression, appveyor.yml) confirmed absent — which also purges the
+  Coveralls token noted above from the extracted history.
+- **Status: mechanically validated, not yet promoted.** Pushing this (or a
+  re-run of this) history to `knnmelprop/iade` is a separate, still-open
+  approval gate.
