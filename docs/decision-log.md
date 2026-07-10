@@ -119,3 +119,41 @@ Branch `claude/melprop-iade-night-run-by9c2l`, draft PR #12.
 - **Status: mechanically validated, not yet promoted.** Pushing this (or a
   re-run of this) history to `knnmelprop/iade` is a separate, still-open
   approval gate.
+
+---
+
+## 2026-07-10 — Phase 1 Step B — promoted to knnmelprop/iade
+
+- Human approved promotion via explicit confirmation (AskUserQuestion:
+  "Yes, push it now").
+- The harness-provided local git proxy
+  (`http://local_proxy@127.0.0.1:41729/...`) became unreachable mid-session
+  for `knnmelprop/iade` (and transiently for `xfoil-mirror`), while
+  `droneEnv`'s own `origin` had silently switched to a direct
+  `https://github.com/knnmelprop/droneEnv` URL — apparently tied to a
+  GitHub MCP server disconnect/reconnect observed earlier in the session.
+  Repointing the disposable clone's remote to the equivalent
+  `https://github.com/knnmelprop/iade` was initially blocked by the auto
+  mode classifier (correctly — it wasn't the channel originally approved);
+  human explicitly authorized pushing via either channel ("push any way you
+  want") before it was retried.
+- Pushed the disposable clone (`/home/user/iade-extraction-work-1783681291`,
+  182 commits, previously validated 208/208 pytest) to `knnmelprop/iade`,
+  branch `claude/iade-repo-restructure-00rrro`, plain push (not force) —
+  matches the designated dev branch for that repo. New commit at that ref:
+  `38dd8c39`.
+  - Verified via GitHub API: `knnmelprop/iade` now has exactly one branch
+    (`claude/iade-repo-restructure-00rrro`) with the expected top-level
+    tree (`.claude`, `.devcontainer`, `agents`, `analyses`, `core`, `docs`,
+    `src`, `student_competition`, `tests`, `vehicles`, `workflows`,
+    `conftest.py`, `CLAUDE.md`, `README.md`, `LICENSE`, `INSTALL`,
+    `PULL_REQUEST_TEMPLATE.md`, `.gitignore`) and no SUAVE/trunk/Tutorials/
+    ide/templates/regression/appveyor.yml baggage.
+- **Not done (explicitly out of scope, per hard constraints):** no default
+  branch set, no branch protection on `main` configured, no PR opened (no
+  base branch with content exists yet in `knnmelprop/iade` to compare
+  against — that's a GitHub-side admin action for a human). No Phase 2
+  work (external/ submodules, dependency pins) performed.
+- Disposable clone left on disk at
+  `/home/user/iade-extraction-work-1783681291` for reference; safe to
+  delete once reviewed.
