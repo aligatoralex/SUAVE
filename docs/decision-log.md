@@ -157,3 +157,28 @@ Branch `claude/melprop-iade-night-run-by9c2l`, draft PR #12.
 - Disposable clone left on disk at
   `/home/user/iade-extraction-work-1783681291` for reference; safe to
   delete once reviewed.
+
+---
+
+## 2026-07-10 — Phase 4 branch inventory finding: `develop` out of sync
+
+- While building `knnmelprop/iade`'s `docs/branch-cleanup-candidates.md`
+  (branch inventory, read-only), found that `droneEnv`'s `develop` (HEAD
+  `a326122`, "Merge pull request #18 from
+  knnmelprop/claude/iade-repo-restructure-00rrro") only merged
+  `claude/iade-repo-restructure-00rrro` as of its **first** commit
+  (`63d833f`, ADR-001 + migration-plan-phase1.md). Three later commits on
+  that branch — `ccb73c8` (Step A consolidation), `6f7fffa` (security
+  note), `31df150` (Step B dry-run results), `d300aea` (Step B promotion
+  log) — are **not** in `develop`.
+- GitHub API reports PR #18 as `state: closed, merged: false`, despite the
+  merge commit existing in `develop`'s history. The exact mechanism isn't
+  determinable from git/API evidence alone (possibly a manual merge
+  followed by closing the PR without GitHub's merge button, or an
+  auto-merge-on-open behavior that fired before later pushes landed).
+- **Not resolved by this session** — merging into `develop` is a
+  shared-state action; this session doesn't do it without being asked.
+  Flagged for human attention. Branch classification for all of
+  `droneEnv`'s other 16 branches (7 merged/safe-cleanup-candidate, 3
+  unknown, 6 stale) is in `knnmelprop/iade`'s
+  `docs/branch-cleanup-candidates.md`. No branch was deleted.
